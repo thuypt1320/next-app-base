@@ -1,10 +1,14 @@
 import { Box } from "@chakra-ui/react";
-import { useAuth } from "hooks/use_auth";
+import { useFetchUsers } from "hooks/use_fetch_users";
+import { DataList } from "components/templates/home/components/data_list";
+
 export const Home = () => {
-  const { data } = useAuth();
+  const { data: users } = useFetchUsers();
+
   return (
     <Box>
-      Home: {JSON.stringify(data)}
+      Home:
+      <DataList data={users}/>
     </Box>
   );
 };

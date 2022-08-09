@@ -1,3 +1,4 @@
 import { applyMiddleware } from "redux";
 import { authMiddleware } from "redux/middlewares/auth";
-export const middlewares = applyMiddleware(authMiddleware);
+import { userMiddleware } from "redux/middlewares/user";
+export const middlewares = applyMiddleware(authMiddleware, userMiddleware);

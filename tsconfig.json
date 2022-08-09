@@ -23,7 +23,7 @@
       "components/*": ["./components/*"],
       "repositories/*": ["./repositories/*"],
       "redux/*": ["./redux/*"],
-      "services/*": ["./services/*"]
+      "services/*": ["./services/*"],
     },
   },
   "include": [

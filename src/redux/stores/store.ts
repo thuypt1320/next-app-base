@@ -4,5 +4,6 @@ import { middlewares } from "redux/middlewares";
 
 export const store = createStore(reducers, middlewares);
 export const authSelector = state => state.auth;
+export const userSelector = state => state.user;
 
 export const dispatch = store.dispatch;
