@@ -11,7 +11,7 @@ export const authMiddleware = store => next => async action => {
       const res = await authRepository.login(action.payload);
       if (action.payload.username === res.data[0].user.name && action.payload.password === 'password') {
         storageService.set(credentialKeyStorage, res.data[0]);
-        return next(login(res.data[0]));
+        next(login(res.data[0]));
       }
       return next(action);
     }

@@ -20,7 +20,6 @@ export const getProfile = payload => {
 };
 
 export const logout = () => {
-  console.log('logout');
   return {
     type: AuthActionTypes.LOGOUT,
   };

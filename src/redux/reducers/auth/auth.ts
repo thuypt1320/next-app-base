@@ -14,14 +14,14 @@ export interface AuthAction {
 }
 
 const credential = storageService.get(credentialKeyStorage);
-const initialState: AuthState = { ...credential?.user, access_token: credential?.access_token } || {};
+const initialState: AuthState = credential || {};
 
 export const authReducer = (state: AuthState = initialState, action: AuthAction) => {
   switch (action.type) {
     case AuthActionTypes.LOGIN: {
       return {
         ...state,
-        data: action.payload
+        ...action.payload
       };
     }
     case AuthActionTypes.GET_PROFILE:

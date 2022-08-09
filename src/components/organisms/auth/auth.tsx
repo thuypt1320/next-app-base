@@ -1,16 +1,14 @@
 import { FC, ReactNode, useEffect } from "react";
 import { Box, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { authDispatch, authSelector } from "redux/stores";
+import { useAuth } from "hooks/use_auth";
 
 interface AuthProps {
   children: ReactNode
 }
 
 export const Auth: FC<AuthProps> = ({ children }) => {
-  const data = useSelector(authSelector);
-  const { logout } = authDispatch();
+  const { data, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -20,7 +18,6 @@ export const Auth: FC<AuthProps> = ({ children }) => {
 
   return (
     <Box>
-      {JSON.stringify(data)}
       {router.pathname !== '/login' && <Button onClick={logout}>Logout</Button>}
       {children}
     </Box>
