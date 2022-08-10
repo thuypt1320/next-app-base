@@ -12,7 +12,7 @@ export class AuthRepository {
     return this.axiosWithoutToken.get('/login');
   }
 
-  async getProfile(_params: {}) {
+  async getProfile() {
     return this.axiosWithToken.get('/profile');
   }
 

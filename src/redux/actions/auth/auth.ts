@@ -24,3 +24,9 @@ export const logout = () => {
     type: AuthActionTypes.LOGOUT,
   };
 };
+
+export const setError = () => {
+  return {
+    type: AuthActionTypes.SET_ERROR,
+  };
+};

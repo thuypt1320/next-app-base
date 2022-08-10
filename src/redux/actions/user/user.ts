@@ -34,3 +34,9 @@ export const remove = (payload) => {
     payload
   };
 };
+
+export const setError = () => {
+  return {
+    type: UserActionTypes.SET_ERROR,
+  };
+};

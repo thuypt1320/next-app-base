@@ -13,7 +13,7 @@ interface IDataListProps {
 export const DataList: FC<IDataListProps> = () => {
   const { data: user, getDetail } = useFetchUser();
   const { data } = useFetchUsers();
-  const { update } = useMutateUsers();
+  const { update, remove } = useMutateUsers();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [selectedUser, setSelectedUser] = useState(user?.id);
 
@@ -28,6 +28,11 @@ export const DataList: FC<IDataListProps> = () => {
     onClose();
   };
 
+  const handleDelete = () => {
+    remove({ id: selectedUser });
+    onClose();
+  };
+
   return (
     <>
       <Table
@@ -35,7 +40,14 @@ export const DataList: FC<IDataListProps> = () => {
         onClickRow={handleOnClick}
       />
       {selectedUser === user?.id &&
-      <ModalUser data={user} isOpen={isOpen} onClose={onClose} type={"update"} onSubmit={handleUpdate}/>}
+      <ModalUser
+        data={user}
+        isOpen={isOpen}
+        onClose={onClose}
+        type={"update"}
+        onSubmit={handleUpdate}
+        onDelete={handleDelete}
+      />}
     </>
   );
 };

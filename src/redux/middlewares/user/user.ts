@@ -1,27 +1,46 @@
 import { UserActionTypes } from "redux/action_types";
 import { userRepository } from "repositories/index";
 import { create, getDetail, getList, remove, update } from "redux/actions";
+import { storageService } from "services/index";
+import { credentialKeyStorage } from "services/storage_service";
+
 export const userMiddleware = store => next => async action => {
+  const credential = storageService.get(credentialKeyStorage);
   switch (action.type) {
     case UserActionTypes.GET_LIST: {
-      const res = await userRepository.list();
-      return next(getList({ data: res.data }));
+      if (credential) {
+        const res = await userRepository.list();
+        if (res.data) return next(getList({ data: res.data }));
+      }
+      break;
     }
     case UserActionTypes.GET_DETAIL: {
-      const res = await userRepository.detail(action.payload);
-      return next(getDetail({ user: res.data }));
+      if (credential) {
+        const res = await userRepository.detail(action.payload);
+        if (res.data) return next(getDetail({ user: res.data }));
+      }
+      break;
     }
     case UserActionTypes.CREATE: {
-      const res = await userRepository.create(action.payload);
-      return next(create({ ...res.data }));
+      if (credential) {
+        const res = await userRepository.create(action.payload);
+        if (res.data) return next(create({ user: res.data }));
+      }
+      break;
     }
     case UserActionTypes.UPDATE: {
-      const res = await userRepository.update(action.payload);
-      return next(update({ user: res.data }));
+      if (credential) {
+        const res = await userRepository.update(action.payload);
+        if (res.data) return next(update({ user: res.data }));
+      }
+      break;
     }
     case UserActionTypes.REMOVE: {
-      const res = await userRepository.remove(action.payload);
-      return next(remove({ ...res.data }));
+      if (credential) {
+        const res = await userRepository.remove(action.payload);
+        if (res.data) return next(remove({ user: res.data }));
+      }
+      break;
     }
     default:
       return next(action);

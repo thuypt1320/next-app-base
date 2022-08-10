@@ -7,6 +7,7 @@ interface IModalUserProps extends Omit<ModalProps, 'children'> {
   data?: IUser
   type?: "update" | "create",
   onSubmit?: (formValue) => void
+  onDelete?: () => void
 }
 
 const defaultData = {
@@ -14,7 +15,13 @@ const defaultData = {
   email: ""
 };
 
-export const ModalUser: FC<IModalUserProps> = ({ type = "create", data = defaultData, onSubmit, ...props }) => {
+export const ModalUser: FC<IModalUserProps> = ({
+  type = "create",
+  data = defaultData,
+  onSubmit,
+  onDelete,
+  ...props
+}) => {
   const handleSubmit = (formValue) => {
     onSubmit(formValue);
   };
@@ -27,7 +34,7 @@ export const ModalUser: FC<IModalUserProps> = ({ type = "create", data = default
           {type?.toUpperCase()}
         </ModalHeader>
         <ModalBody>
-          <FormUser value={data} onSubmit={handleSubmit}/>
+          <FormUser value={data} onSubmit={handleSubmit} onDelete={type === 'update' ? onDelete : undefined}/>
         </ModalBody>
       </ModalContent>
     </Modal>

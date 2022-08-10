@@ -3,5 +3,6 @@ export enum UserActionTypes {
   GET_DETAIL = 'GET_DETAIL',
   CREATE = 'CREATE',
   UPDATE = 'UPDATE',
-  REMOVE = 'REMOVE'
+  REMOVE = 'REMOVE',
+  SET_ERROR = 'SET_ERROR'
 }

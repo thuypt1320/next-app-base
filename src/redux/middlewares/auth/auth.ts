@@ -9,20 +9,30 @@ export const authMiddleware = store => next => async action => {
   switch (action.type) {
     case AuthActionTypes.LOGIN: {
       const res = await authRepository.login(action.payload);
-      if (action.payload.username === res.data[0].user.name && action.payload.password === 'password') {
-        storageService.set(credentialKeyStorage, res.data[0]);
-        return next(login({ ...res.data[0], loading: Boolean(!res.data) }));
+      if (res.data) {
+        if (action.payload.username === res.data[0]?.user?.name && action.payload.password === 'password') {
+          next(login(res.data[0]));
+          const profile = await authRepository.getProfile();
+          if (profile.data) {
+            storageService.set(credentialKeyStorage, { user: profile.data[0], access_token: res.data[0].access_token });
+            next(getProfile({ user: profile.data[0] }));
+          }
+        }
       }
-      return next(action);
+      break;
     }
     case AuthActionTypes.GET_PROFILE: {
-      const res = await authRepository.getProfile(action.payload);
-      return next(getProfile({ ...res.data, loading: Boolean(!res.data) }));
+      if (credential) {
+        const res = await authRepository.getProfile();
+        if (res.data) return next(getProfile({ user: res.data[0] }));
+      }
+      break;
     }
     case AuthActionTypes.LOGOUT: {
-      await authRepository.logout();
+      const res = await authRepository.logout();
       storageService.remove(credentialKeyStorage);
-      return next(logout());
+      if (res.data) return next(logout());
+      break;
     }
     default: {
       return next(action);

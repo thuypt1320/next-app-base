@@ -6,10 +6,11 @@ import { Button } from "@chakra-ui/react";
 import { Card } from "components/atoms/card";
 interface IFormUserProps {
   value?: IUser,
-  onSubmit?: (value: unknown) => void
+  onSubmit?: (value: unknown) => void,
+  onDelete?: () => void
 }
 
-export const FormUser: FC<IFormUserProps> = ({ value, onSubmit }) => {
+export const FormUser: FC<IFormUserProps> = ({ value, onSubmit, onDelete }) => {
   const { register, handleSubmit } = useForm();
 
   if (!value) return <></>;
@@ -25,6 +26,7 @@ export const FormUser: FC<IFormUserProps> = ({ value, onSubmit }) => {
           })
         }
         <Button type={"submit"}>Submit</Button>
+        {onDelete && <Button onClick={onDelete}>Delete</Button>}
       </Card>
     </form>
   );
