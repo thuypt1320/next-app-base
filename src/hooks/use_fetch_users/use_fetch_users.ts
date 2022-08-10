@@ -6,9 +6,12 @@ import { UserActionTypes } from "redux/action_types";
 export const useFetchUsers = () => {
   const data = useSelector(userSelector);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({ type: UserActionTypes.GET_LIST });
-  }, [dispatch]);
 
-  return { data: data.data };
+  useEffect(() => {
+    if (!data.data) dispatch({ type: UserActionTypes.GET_LIST });
+  }, [dispatch, data]);
+
+  return {
+    data: data.data,
+  };
 };

@@ -5,23 +5,21 @@ import { useFetchUser } from "hooks/use_fetch_user";
 import { ModalUser } from "components/templates/home/components/modal_user";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutateUsers } from "hooks/use_mutate_users";
+import { useFetchUsers } from "hooks/use_fetch_users";
 interface IDataListProps {
   data?: IUser[]
 }
 
-export const DataList: FC<IDataListProps> = ({ data }) => {
-  const [userId, setUserId] = useState<string>();
-  const { data: user } = useFetchUser({ id: userId });
+export const DataList: FC<IDataListProps> = () => {
+  const { data: user, getDetail } = useFetchUser();
+  const { data } = useFetchUsers();
   const { update } = useMutateUsers();
   const { isOpen, onClose, onOpen } = useDisclosure();
-
-  const updateState = () => {
-    return userId;
-  };
+  const [selectedUser, setSelectedUser] = useState(user?.id);
 
   const handleOnClick = (value?: IUser) => {
-    setUserId(value.id);
-    updateState();
+    getDetail(value.id);
+    setSelectedUser(value.id);
     onOpen();
   };
 
@@ -36,7 +34,8 @@ export const DataList: FC<IDataListProps> = ({ data }) => {
         data={data}
         onClickRow={handleOnClick}
       />
-      <ModalUser data={user} isOpen={isOpen} onClose={onClose} type={"update"} onSubmit={handleUpdate}/>
+      {selectedUser === user?.id &&
+      <ModalUser data={user} isOpen={isOpen} onClose={onClose} type={"update"} onSubmit={handleUpdate}/>}
     </>
   );
 };

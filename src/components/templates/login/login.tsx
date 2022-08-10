@@ -4,16 +4,20 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "hooks/use_auth";
 import { Card } from "components/atoms/card";
 import { Input } from "components/atoms/input";
+import { storageService } from "services/index";
+import { credentialKeyStorage } from "services/storage_service";
 
 export const Login = () => {
-  const { data, login } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
   const { register, handleSubmit } = useForm();
+  const credential = storageService.get(credentialKeyStorage);
 
   const handleLogin = (formValue) => {
     login(formValue);
-    data.access_token && router.push('/');
   };
+
+  if (credential?.access_token) router.push('/');
 
   return (
     <form onSubmit={handleSubmit(handleLogin)} name={'loginForm'}>

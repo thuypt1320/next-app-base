@@ -4,8 +4,8 @@ import { ILoginPayload } from "redux/actions";
 import { storageService } from "services/index";
 import { credentialKeyStorage } from "services/storage_service";
 export interface AuthState {
-  user: IUser,
-  access_token?: string
+  user?: IUser,
+  access_token?: string,
 }
 
 export interface AuthAction {
@@ -30,7 +30,7 @@ export const authReducer = (state: AuthState = initialState, action: AuthAction)
         ...action.payload
       };
     case AuthActionTypes.LOGOUT:
-      return {};
+      return initialState;
     default:
       return state;
   }

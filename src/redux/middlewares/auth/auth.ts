@@ -11,24 +11,21 @@ export const authMiddleware = store => next => async action => {
       const res = await authRepository.login(action.payload);
       if (action.payload.username === res.data[0].user.name && action.payload.password === 'password') {
         storageService.set(credentialKeyStorage, res.data[0]);
-        next(login(res.data[0]));
+        return next(login({ ...res.data[0], loading: Boolean(!res.data) }));
       }
       return next(action);
     }
     case AuthActionTypes.GET_PROFILE: {
-      if (credential.access_token) {
-        const res = await authRepository.getProfile(action.payload);
-        return next(getProfile(res.data));
-      }
-      return next(action);
-
+      const res = await authRepository.getProfile(action.payload);
+      return next(getProfile({ ...res.data, loading: Boolean(!res.data) }));
     }
     case AuthActionTypes.LOGOUT: {
       await authRepository.logout();
       storageService.remove(credentialKeyStorage);
       return next(logout());
     }
-    default:
+    default: {
       return next(action);
+    }
   }
 };

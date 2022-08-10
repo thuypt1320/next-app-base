@@ -13,15 +13,15 @@ export const userMiddleware = store => next => async action => {
     }
     case UserActionTypes.CREATE: {
       const res = await userRepository.create(action.payload);
-      return next(create(res.data));
+      return next(create({ ...res.data }));
     }
     case UserActionTypes.UPDATE: {
       const res = await userRepository.update(action.payload);
-      return next(update(res.data));
+      return next(update({ user: res.data }));
     }
     case UserActionTypes.REMOVE: {
       const res = await userRepository.remove(action.payload);
-      return next(remove(res.data));
+      return next(remove({ ...res.data }));
     }
     default:
       return next(action);

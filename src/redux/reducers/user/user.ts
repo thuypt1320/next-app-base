@@ -1,15 +1,15 @@
 import { UserActionTypes } from "redux/action_types";
 import { IUser } from "types";
-interface IUserState {
+export interface IUserState {
   data?: IUser[],
-  user?: IUser
+  user?: IUser,
 }
 
-interface IUserAction {
+export interface IUserAction {
   type: UserActionTypes,
   payload: IUserState
 }
-const initialState: IUserState = { data: [] };
+const initialState: IUserState = {};
 
 export const userReducer = (state: IUserState = initialState, action: IUserAction) => {
   switch (action.type) {
@@ -28,11 +28,14 @@ export const userReducer = (state: IUserState = initialState, action: IUserActio
         ...state,
         ...action.payload
       };
-    case UserActionTypes.UPDATE:
+    case UserActionTypes.UPDATE: {
+      const data = [...state.data].map(item => item.id === action.payload.user.id ? action.payload.user : item);
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+        data
       };
+    }
     case UserActionTypes.REMOVE:
       return {};
     default:

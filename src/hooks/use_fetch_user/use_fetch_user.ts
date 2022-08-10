@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "redux/stores";
-import { useEffect } from "react";
 import { getDetail } from "redux/actions";
 
-export const useFetchUser = (params?: { id?: string }) => {
+export const useFetchUser = () => {
   const data = useSelector(userSelector);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getDetail(params));
-  }, [params.id, dispatch]);
 
-  return { data: data.user };
+  const loading = !data?.loading;
+
+  return {
+    data: data.user, loading,
+    getDetail: (id: string) => {
+      dispatch(getDetail({ id }));
+    }
+  };
 };

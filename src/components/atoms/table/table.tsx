@@ -12,7 +12,7 @@ export const Table: FC<ITableProps> = ({ data = defaultData, onClickRow }) => {
   return (
     <TableChakra>
       <Thead>
-        {headers.map((item, index) => <Th key={index}>{item}</Th>)}
+        <Tr>{headers.map((item, index) => <Th key={index}>{item}</Th>)}</Tr>
       </Thead>
       <Tbody>
         {rows?.map((row, index) => <Tr key={index} onClick={() => onClickRow(data[index])}>
