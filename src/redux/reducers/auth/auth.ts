@@ -16,7 +16,7 @@ export interface AuthAction {
 const credential = storageService.get(credentialKeyStorage);
 const initialState: AuthState = credential || {};
 
-export const authReducer = (state: AuthState | { error: boolean } = initialState, action: AuthAction) => {
+export const authReducer = (state: AuthState = initialState, action: AuthAction) => {
   switch (action.type) {
     case AuthActionTypes.LOGIN: {
       return {
@@ -30,7 +30,7 @@ export const authReducer = (state: AuthState | { error: boolean } = initialState
         ...action.payload
       };
     case AuthActionTypes.LOGOUT:
-      return initialState;
+      return {};
     case AuthActionTypes.SET_ERROR:
       return { error: true };
     default:

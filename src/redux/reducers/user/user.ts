@@ -10,6 +10,7 @@ export interface IUserAction {
   type: UserActionTypes,
   payload: IUserState
 }
+
 const initialState: IUserState = {};
 
 export const userReducer = (state: IUserState = initialState, action: IUserAction) => {

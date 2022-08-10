@@ -22,7 +22,6 @@ export const Login = () => {
 
   return (
     <form onSubmit={handleSubmit(handleLogin)} name={'loginForm'}>
-      {JSON.stringify(data)}
       <Card>
         <Input label={"User name: "} defaultValue={''} {...register("username")}/>
         <Input label={"Password:"} type={"password"} defaultValue={''} {...register("password")}/>

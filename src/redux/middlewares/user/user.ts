@@ -45,4 +45,6 @@ export const userMiddleware = store => next => async action => {
     default:
       return next(action);
   }
+  return next(action);
+
 };
