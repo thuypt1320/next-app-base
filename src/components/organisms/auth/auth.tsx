@@ -1,24 +1,29 @@
-import { FC, ReactNode, useEffect } from "react";
-import { Box, Spinner } from "@chakra-ui/react";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useAuth } from "hooks/use_auth";
+import { Layout, LayoutMain } from "components/organisms/layout";
+import { Sidebar } from "components/organisms/sidebar";
 interface AuthProps {
   children: ReactNode
 }
 
-export const Auth: FC<AuthProps> = ({ children }) => {
+export const AuthLayout: FC<AuthProps> = ({ children }) => {
   const { data } = useAuth();
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
-    (!data.access_token) && router.push('/login');
+    setLoading(!data.access_token);
+    !data.access_token && router.push('/login');
   }, [router, data]);
 
-  if (router.pathname !== '/login' && !data.access_token) return <Spinner/>;
+  if (loading) return <Spinner/>;
 
   return (
-    <Box justifyContent={"center"}>
-      {children}
-    </Box>
+    <Layout>
+      <Sidebar/>
+      <LayoutMain>{children}</LayoutMain>
+    </Layout>
   );
 };

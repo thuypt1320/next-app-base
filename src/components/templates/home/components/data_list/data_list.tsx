@@ -38,6 +38,7 @@ export const DataList: FC<IDataListProps> = () => {
       <Table
         data={data}
         onClickRow={handleOnClick}
+        trProps={{ _hover: { cursor: "pointer" } }}
       />
       {selectedUser === user?.id &&
       <ModalUser
