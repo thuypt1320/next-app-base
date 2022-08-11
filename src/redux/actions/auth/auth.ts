@@ -2,7 +2,8 @@ import { AuthActionTypes } from "redux/action_types";
 
 export interface ILoginPayload {
   username?: string,
-  password?: string
+  password?: string,
+  type?: string
 }
 
 export const login = (payload: ILoginPayload) => {
@@ -25,8 +26,3 @@ export const logout = () => {
   };
 };
 
-export const setError = () => {
-  return {
-    type: AuthActionTypes.SET_ERROR,
-  };
-};

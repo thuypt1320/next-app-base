@@ -6,11 +6,15 @@ import { credentialKeyStorage } from "services/storage_service";
 
 export const authMiddleware = store => next => async action => {
   const credential = storageService.get(credentialKeyStorage);
+  console.log(store);
   switch (action.type) {
     case AuthActionTypes.LOGIN: {
       const res = await authRepository.login(action.payload);
+      const isAllowed = (action.payload.username === res.data[0]?.user?.name && action.payload.password === 'password')
+        || action.payload.type === 'google';
+
       if (res.data) {
-        if (action.payload.username === res.data[0]?.user?.name && action.payload.password === 'password') {
+        if (isAllowed) {
           next(login(res.data[0]));
           const profile = await authRepository.getProfile();
           if (profile.data) {

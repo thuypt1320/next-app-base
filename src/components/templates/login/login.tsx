@@ -5,6 +5,7 @@ import { useAuth } from "hooks/use_auth";
 import { Card } from "components/atoms/card";
 import { Input } from "components/atoms/input";
 import { useEffect } from "react";
+import GoogleLogin from "react-google-login";
 
 export const Login = () => {
   const { data, login } = useAuth();
@@ -14,6 +15,10 @@ export const Login = () => {
 
   const handleLogin = (formValue) => {
     login(formValue);
+  };
+
+  const handleLoginGoogle = () => {
+    login({ type: 'google' });
   };
 
   useEffect(() => {
@@ -29,6 +34,10 @@ export const Login = () => {
         <Button type={"submit"}>
           Login
         </Button>
+        <GoogleLogin
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+          onSuccess={handleLoginGoogle}
+        />
       </Card>
     </form>
   );

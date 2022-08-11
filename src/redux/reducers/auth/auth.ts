@@ -31,8 +31,6 @@ export const authReducer = (state: AuthState = initialState, action: AuthAction)
       };
     case AuthActionTypes.LOGOUT:
       return {};
-    case AuthActionTypes.SET_ERROR:
-      return { error: true };
     default:
       return state;
   }
