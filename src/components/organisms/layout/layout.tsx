@@ -10,7 +10,6 @@ export const LayoutWrapper = styled(Box)`
   "sidebar footer";
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 500px 1fr;
-  height: 100vh
 `;
 
 export const LayoutSidebar = styled(Box)`
@@ -23,25 +22,37 @@ export const LayoutSidebar = styled(Box)`
   padding: 20px;
   margin-right: 40px;
   border-right: 1px solid black;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 
 export const SidebarHeader = styled(Box)`
   grid-area: headerSidebar;
+  border-bottom: 1px solid #000;
+  height: 100%;
+  color: transparent
 `;
 
 export const SidebarMain = styled(Box)`
   grid-area: mainSidebar;
+  border-bottom: 1px solid #000;
+  height: 100%;
+  color: transparent
 `;
 
 export const SidebarFooter = styled(Box)`
   grid-area: footerSidebar;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 `;
 
 export const LayoutHeader = styled.header`
   grid-area: header;
   padding: 20px;
-  border-bottom: 1px solid black
+  border-bottom: 1px solid black;
 `;
 export const LayoutMain = styled.main`
   grid-area: main;

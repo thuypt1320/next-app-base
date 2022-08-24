@@ -6,7 +6,6 @@ import { credentialKeyStorage } from "services/storage_service";
 
 export const authMiddleware = store => next => async action => {
   const credential = storageService.get(credentialKeyStorage);
-  console.log(store);
   switch (action.type) {
     case AuthActionTypes.LOGIN: {
       const res = await authRepository.login(action.payload);
@@ -33,10 +32,8 @@ export const authMiddleware = store => next => async action => {
       break;
     }
     case AuthActionTypes.LOGOUT: {
-      const res = await authRepository.logout();
       storageService.remove(credentialKeyStorage);
-      if (res.data) return next(logout());
-      break;
+      return next(logout());
     }
     default: {
       return next(action);

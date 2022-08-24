@@ -1,4 +1,4 @@
-import { LayoutSidebar, SidebarFooter } from "components/organisms/layout";
+import { LayoutSidebar, SidebarFooter, SidebarHeader, SidebarMain } from "components/organisms/layout";
 import { Button } from "@chakra-ui/react";
 import { useAuth } from "hooks/use_auth";
 import { useRouter } from "next/router";
@@ -15,6 +15,8 @@ export const Sidebar = () => {
 
   return (
     <LayoutSidebar>
+      <SidebarHeader> - </SidebarHeader>
+      <SidebarMain> - </SidebarMain>
       <SidebarFooter>
         <Button onClick={handleLogout}>Logout</Button>
       </SidebarFooter>

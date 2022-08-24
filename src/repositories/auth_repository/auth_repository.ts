@@ -15,8 +15,4 @@ export class AuthRepository {
   async getProfile() {
     return this.axiosWithToken.get('/profile');
   }
-
-  async logout() {
-    return this.axiosWithToken.post('/logout');
-  }
 }
