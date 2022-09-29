@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { Input } from "components/atoms/input";
-
+// -- @font-face:
 export interface IInputPasswordProps {
   mask?: string;
 }
